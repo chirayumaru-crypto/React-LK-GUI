@@ -315,14 +315,14 @@ export function ChartPreview({ chartType }: ChartPreviewProps) {
         // Chart 15: letters-evotl-20
         if (chartType === 'letters-evotl-20') {
             return (
-                <div key="chart-15" className="w-full h-full flex flex-col items-center justify-center bg-white p-2 gap-2">
-                    <div className="flex gap-3 font-bold text-black" style={{ fontSize: '30px', lineHeight: 1 }}>
+                <div key="chart-15" className="w-full h-full flex flex-col items-center justify-center bg-white p-2 gap-1">
+                    <div className="flex gap-4 font-bold text-black" style={{ fontSize: '32px', lineHeight: 1 }}>
                         <span>E</span><span>V</span><span>O</span><span>T</span><span>L</span>
                     </div>
-                    <div className="flex gap-3 font-bold text-black" style={{ fontSize: '24px', lineHeight: 1 }}>
+                    <div className="flex gap-4 font-bold text-black" style={{ fontSize: '28px', lineHeight: 1 }}>
                         <span>T</span><span>B</span><span>G</span><span>A</span><span>B</span>
                     </div>
-                    <div className="flex gap-3 font-bold text-black" style={{ fontSize: '20px', lineHeight: 1 }}>
+                    <div className="flex gap-4 font-bold text-black" style={{ fontSize: '24px', lineHeight: 1 }}>
                         <span>H</span><span>N</span><span>F</span><span>Z</span><span>C</span>
                     </div>
                 </div>
@@ -332,14 +332,14 @@ export function ChartPreview({ chartType }: ChartPreviewProps) {
         // Chart 16: letters-aplbk-25
         if (chartType === 'letters-aplbk-25') {
             return (
-                <div key="chart-16" className="w-full h-full flex flex-col items-center justify-center bg-white p-2 gap-2">
-                    <div className="flex gap-3 font-bold text-black" style={{ fontSize: '30px', lineHeight: 1 }}>
+                <div key="chart-16" className="w-full h-full flex flex-col items-center justify-center bg-white p-2 gap-1">
+                    <div className="flex gap-4 font-bold text-black" style={{ fontSize: '32px', lineHeight: 1 }}>
                         <span>A</span><span>P</span><span>L</span><span>B</span><span>K</span>
                     </div>
-                    <div className="flex gap-3 font-bold text-black" style={{ fontSize: '24px', lineHeight: 1 }}>
+                    <div className="flex gap-4 font-bold text-black" style={{ fontSize: '28px', lineHeight: 1 }}>
                         <span>6</span><span>3</span><span>8</span><span>2</span><span>5</span>
                     </div>
-                    <div className="flex gap-3 font-bold text-black" style={{ fontSize: '20px', lineHeight: 1 }}>
+                    <div className="flex gap-4 font-bold text-black" style={{ fontSize: '24px', lineHeight: 1 }}>
                         <span>Z</span><span>R</span><span>H</span><span>C</span><span>T</span>
                     </div>
                 </div>
@@ -450,7 +450,7 @@ export function ChartPreview({ chartType }: ChartPreviewProps) {
             return (
                 <div key="chart-20" className="w-full h-full flex flex-col bg-white">
                     {/* Top Half - Green BHAZN */}
-                    <div className="h-1/2 w-full flex items-center justify-center relative">
+                    <div className="h-1/2 w-full flex items-center justify-center relative border-b-4 border-black">
                         <span className="font-bold tracking-wide" style={{ color: '#00BB00', fontSize: '52px', letterSpacing: '0.1em' }}>BHAZN</span>
                         <span className="absolute right-3 top-3 font-bold" style={{ color: '#DD0000', fontSize: '28px' }}>R</span>
                     </div>
@@ -467,7 +467,7 @@ export function ChartPreview({ chartType }: ChartPreviewProps) {
         if (chartType === 'fixation-dot') {
             return (
                 <div key="chart-21" className="w-full h-full flex items-center justify-center bg-black">
-                    <div className="w-4 h-4 bg-white rounded-full" />
+                    <div className="w-5 h-5 bg-white rounded-full" />
                 </div>
             );
         }
