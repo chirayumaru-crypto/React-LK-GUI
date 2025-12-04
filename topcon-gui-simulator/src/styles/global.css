@@ -1,0 +1,62 @@
+/* Global Styles - Topcon CV-5000 GUI Simulator */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* Color Palette - Inspired by Topcon CV-5000 */
+  --primary-bg: #e8eef7;
+  --secondary-bg: #d4dce8;
+  --button-bg: #b8c5d6;
+  --button-hover: #a0afc8;
+  --button-active: #8896b0;
+  --text-primary: #1a1a1a;
+  --text-secondary: #4a4a4a;
+  --border-color: #6b7a8f;
+  --highlight-color: #4a90e2;
+  --disabled-bg: #e0e8f0;
+  --disabled-text: #8a96a8;
+  --occlusion-off: #c8d0db;
+  --occlusion-on: #5a6a7a;
+  --cell-hover: #b3d9ff;
+  --cell-border: #9ab5cf;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--primary-bg);
+  color: var(--text-primary);
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--secondary-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--button-bg);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--button-hover);
+}

@@ -1,0 +1,58 @@
+{
+  "image_dimensions": {
+    "width": 1068,
+    "height": 946
+  },
+  "header": {
+    "x": 7,
+    "y": 9,
+    "w": 1053,
+    "h": 928,
+    "area": 974095,
+    "aspect_ratio": 1.13
+  },
+  "columns": [
+    {
+      "x": 7,
+      "y": 113,
+      "w": 407,
+      "h": 798,
+      "area": 20484,
+      "aspect_ratio": 0.51
+    },
+    {
+      "x": 264,
+      "y": 215,
+      "w": 204,
+      "h": 49,
+      "area": 9539,
+      "aspect_ratio": 4.16
+    },
+    {
+      "x": 264,
+      "y": 215,
+      "w": 204,
+      "h": 48,
+      "area": 9534,
+      "aspect_ratio": 4.25
+    }
+  ],
+  "charts": {
+    "x": 366,
+    "y": 442,
+    "w": 84,
+    "h": 84,
+    "area": 5321,
+    "aspect_ratio": 1.0
+  },
+  "grid_ratios": {
+    "col1": 0.883,
+    "col2": 0.443,
+    "col3": 0.443
+  },
+  "background_color": [
+    231,
+    230,
+    231
+  ]
+}
