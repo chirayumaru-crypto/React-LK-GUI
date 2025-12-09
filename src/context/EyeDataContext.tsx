@@ -1,5 +1,6 @@
 import React, { createContext, useReducer, ReactNode } from 'react';
-import { AppState, RefractionValue } from '../types';
+import { AppState, RefractionValue, LogEntry, ChartType } from '../types';
+import { getChartInfo } from '../utils/chartUtils';
 
 const DEFAULT_REFRACTION: RefractionValue = {
   s: 0.0,
@@ -17,6 +18,8 @@ const DEFAULT_STATE: AppState = {
     leftEye: false,
   },
   testMode: 'bino',
+  currentChart: 'landolt-c-500',
+  logs: [],
 };
 
 export type AppAction =
@@ -28,49 +31,113 @@ export type AppAction =
   | { type: 'TOGGLE_RIGHT_EYE_OCCLUSION' }
   | { type: 'TOGGLE_LEFT_EYE_OCCLUSION' }
   | { type: 'SET_TEST_MODE'; payload: 'left-only' | 'right-only' | 'bino' }
+  | { type: 'SET_CHART'; payload: ChartType }
+  | { type: 'CLEAR_LOGS' }
   | { type: 'RESET' };
 
+function createLogEntry(state: AppState): LogEntry {
+  const formatLensValue = (value: number): string => {
+    const formatted = value.toFixed(2);
+    return value >= 0 ? `+${formatted}` : formatted;
+  };
+
+  const getOccluderState = () => {
+    if (state.occlusion.rightEye && state.occlusion.leftEye) return 'Both';
+    if (state.occlusion.rightEye) return 'Right';
+    if (state.occlusion.leftEye) return 'Left';
+    return 'None';
+  };
+
+  const chartInfo = getChartInfo(state.currentChart);
+
+  return {
+    timestamp: new Date().toISOString(),
+    R_SPH: formatLensValue(state.rightEye.s),
+    R_CYL: formatLensValue(state.rightEye.c),
+    R_AXIS: state.rightEye.a.toString(),
+    R_ADD: formatLensValue(state.rightEye.add),
+    L_SPH: formatLensValue(state.leftEye.s),
+    L_CYL: formatLensValue(state.leftEye.c),
+    L_AXIS: state.leftEye.a.toString(),
+    L_ADD: formatLensValue(state.leftEye.add),
+    PD: state.pd.toFixed(1),
+    Chart_Number: chartInfo.number.toString(),
+    Occluder_State: getOccluderState(),
+    Chart_Display: chartInfo.name,
+    Speaker: '',
+    Utterance_Text: '',
+    Translation_in_En: '',
+    Speaker_Intent: '',
+    Detected_Language: '',
+    Patient_Confidence_Score: 0,
+    Hesitation_Markers: '',
+    Requires_Verification: '',
+  };
+}
+
 function reducer(state: AppState, action: AppAction): AppState {
+  let newState: AppState;
+
   switch (action.type) {
     case 'SET_RIGHT_EYE':
-      return { ...state, rightEye: action.payload };
+      newState = { ...state, rightEye: action.payload };
+      break;
     case 'SET_LEFT_EYE':
-      return { ...state, leftEye: action.payload };
+      newState = { ...state, leftEye: action.payload };
+      break;
     case 'UPDATE_RIGHT_EYE_PARAM':
-      return {
+      newState = {
         ...state,
         rightEye: { ...state.rightEye, [action.param]: action.value },
       };
+      break;
     case 'UPDATE_LEFT_EYE_PARAM':
-      return {
+      newState = {
         ...state,
         leftEye: { ...state.leftEye, [action.param]: action.value },
       };
+      break;
     case 'SET_PD':
-      return { ...state, pd: action.payload };
+      newState = { ...state, pd: action.payload };
+      break;
     case 'TOGGLE_RIGHT_EYE_OCCLUSION':
-      return {
+      newState = {
         ...state,
         occlusion: {
           ...state.occlusion,
           rightEye: !state.occlusion.rightEye,
         },
       };
+      break;
     case 'TOGGLE_LEFT_EYE_OCCLUSION':
-      return {
+      newState = {
         ...state,
         occlusion: {
           ...state.occlusion,
           leftEye: !state.occlusion.leftEye,
         },
       };
+      break;
     case 'SET_TEST_MODE':
-      return { ...state, testMode: action.payload };
+      newState = { ...state, testMode: action.payload };
+      break;
+    case 'SET_CHART':
+      newState = { ...state, currentChart: action.payload };
+      break;
+    case 'CLEAR_LOGS':
+      return { ...state, logs: [] };
     case 'RESET':
-      return DEFAULT_STATE;
+      return { ...DEFAULT_STATE, logs: state.logs };
     default:
       return state;
   }
+
+  // Log every state change
+  const logEntry = createLogEntry(newState);
+  return {
+    ...newState,
+    logs: [...newState.logs, logEntry],
+  };
 }
 
 export interface EyeDataContextType {

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useEyeData } from '../hooks/useEyeData';
 
 export type ChartType =
     | 'landolt-c-500' | 'landolt-c-400' | 'landolt-c-200' | 'landolt-c-150'
@@ -48,10 +49,10 @@ interface ChartsSectionProps {
 
 export function ChartsSection({ onChartSelect }: ChartsSectionProps) {
     const [activeTab, setActiveTab] = useState<number>(0);
-    const [selectedChart, setSelectedChart] = useState<ChartType>('red-green');
+    const { state, dispatch } = useEyeData();
 
     const handleChartSelect = (chart: ChartType) => {
-        setSelectedChart(chart);
+        dispatch({ type: 'SET_CHART', payload: chart });
         onChartSelect?.(chart);
     };
 
@@ -64,7 +65,7 @@ export function ChartsSection({ onChartSelect }: ChartsSectionProps) {
     ];
 
     const renderChart = (chart: ChartData) => {
-        const isSelected = selectedChart === chart.id;
+        const isSelected = state.currentChart === chart.id;
         const isRedGreen = chart.id === 'red-green';
         const isFixationDot = chart.id === 'fixation-dot';
         const isRedGreenLines = chart.id === 'red-green-lines';

@@ -16,4 +16,33 @@ export interface EyeData {
   testMode: 'left-only' | 'right-only' | 'bino';
 }
 
-export interface AppState extends EyeData {}
+export type ChartType = string;
+
+export interface LogEntry {
+  timestamp: string;
+  R_SPH: string;
+  R_CYL: string;
+  R_AXIS: string;
+  R_ADD: string;
+  L_SPH: string;
+  L_CYL: string;
+  L_AXIS: string;
+  L_ADD: string;
+  PD: string;
+  Chart_Number: string;
+  Occluder_State: string;
+  Chart_Display: string;
+  Speaker: string;
+  Utterance_Text: string;
+  Translation_in_En: string;
+  Speaker_Intent: string;
+  Detected_Language: string;
+  Patient_Confidence_Score: number;
+  Hesitation_Markers: string;
+  Requires_Verification: string;
+}
+
+export interface AppState extends EyeData {
+  currentChart: ChartType;
+  logs: LogEntry[];
+}
