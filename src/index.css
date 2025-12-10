@@ -1,16 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-body {
-  @apply bg-gray-100 overflow-hidden;
-  font-family: 'Inter', sans-serif;
+@layer base {
+  body {
+    @apply bg-ms-bg text-topcon-gray-800 font-sans h-screen overflow-hidden select-none;
+  }
 }
 
-/* Custom scrollbar for charts grid if needed */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-thumb {
-  @apply bg-gray-400 rounded;
+@layer components {
+  .panel-container {
+    @apply bg-white border border-topcon-gray-300 rounded shadow-sm;
+  }
+
+  /* Membrane Key Style Button */
+  .btn-membrane {
+    @apply bg-gradient-to-b from-white to-gray-100 border border-gray-300 shadow-key rounded active:shadow-key-active active:translate-y-[1px] text-topcon-gray-800 font-semibold uppercase tracking-tight flex items-center justify-center transition-all;
+  }
+
+  .btn-membrane.active {
+    @apply bg-ms-medium text-white border-ms-dark shadow-key-active;
+  }
+
+  .table-cell-header {
+    @apply bg-ms-dark text-white font-bold text-center px-2 py-1 text-xs border-r border-white/20;
+  }
+
+  .table-cell-data {
+    @apply bg-white border-b border-r border-gray-200 text-center font-mono text-lg text-blue-900;
+  }
+
+  .table-cell-data.highlight {
+    @apply bg-ms-active;
+  }
 }
