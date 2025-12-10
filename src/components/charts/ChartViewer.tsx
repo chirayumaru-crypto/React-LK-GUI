@@ -266,7 +266,7 @@ export const ChartViewer: React.FC = () => {
             return (
                 <div className="relative w-96 h-96">
                     {[...Array(12)].map((_, i) => {
-                        const angle = (i * 30) * (Math.PI / 180);
+                    
                         return (
                             <div
                                 key={i}
