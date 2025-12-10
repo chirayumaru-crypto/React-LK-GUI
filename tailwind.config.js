@@ -7,14 +7,17 @@ export default {
   theme: {
     extend: {
       colors: {
-        'topcon-blue': '#5B8BD5', // Header R
-        'topcon-purple': '#7030A0', // Header L
-        'topcon-red': '#C00000', // Active Cell
-        'topcon-yellow': '#FFC000', // S Label, Tabs
-        'topcon-green': '#92D050', // Tabs
-        'topcon-gray': '#A5A5A5', // Inactive
-        'topcon-dark': '#404040', // Text
-        'topcon-bg': '#E6E6FA', // Background hint
+        'ms-dark': '#2B4B85',      // Deep Royal Blue for Headers/Right vertical bar
+        'ms-medium': '#4A72C5',    // Lighter blue for active buttons
+        'ms-cell': '#BFE1F6',      // Very light blue for grid cells
+        'ms-bg': '#F0F2F5',        // General background
+        'ms-gray': '#E5E7EB',      // Disabled/Inactive
+        'ms-red': '#DC2626',
+        'ms-green': '#16A34A',
+      },
+      fontFamily: {
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+        mono: ['Roboto Mono', 'monospace'], // For digital numbers
       }
     },
   },

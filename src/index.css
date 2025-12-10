@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-gray-100 overflow-hidden;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Custom scrollbar for charts grid if needed */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-400 rounded;
+}

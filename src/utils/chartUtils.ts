@@ -1,65 +1,72 @@
-import { ChartType } from '../types';
+export const getChartInfo = (chartId: string) => {
+    if (!chartId) return { number: '', display: '' };
 
-// Map chart IDs to their position in the grid (1-based index)
-export const CHART_DEFINITIONS = [
-    // Row 1 - Charts 1-7 (Rotated E chart)
-    'landolt-c-500',       // Chart 1
-    'landolt-c-400',       // Chart 2
-    'landolt-c-200',       // Chart 3
-    'landolt-c-150',       // Chart 4
-    'landolt-c-split-1',   // Chart 5
-    'landolt-c-split-2',   // Chart 6
-    'landolt-c-split-3',   // Chart 7
+    // Group mapping names (General Name for Chart Number column)
+    const groupNameMap: Record<string, string> = {
+        'E': 'E Chart',
+        'C': 'C Chart',
+        'letters': 'Letters Chart',
+        'numbers': 'Number Chart',
+        'children': 'Picture Chart',
+        'special': 'General Test Chart',
+        'mask': 'Mask Chart'
+    };
 
-    // Row 2 - Charts 8-14 (Snellen Chart)
-    'letters-multi-20',    // Chart 8
-    'landolt-c-400-2',     // Chart 9
-    'letters-enh-200',     // Chart 10
-    'letters-hbv-100',     // Chart 11
-    'letters-vlnea-70',    // Chart 12
-    'letters-fzbde-40',    // Chart 13
-    'letters-tzvec-20',    // Chart 14
+    // Special/Specific mapping for display name
+    const specialMap: Record<string, string> = {
+        'dots': 'JCC Chart',
+        'rg': 'Duochrome Chart',
+        'cross': 'Cross Cylinder Chart',
+        'clock': 'Astigmatic Chart',
+        'stereo': 'Stereo Circles',
+        'schober': 'Schober Test',
+        'phoria': 'Phoria Lines',
+        'horiz': 'Horizontal Mask',
+        'vert': 'Vertical Mask',
+        'single': 'Single Optotype',
+        'rg_filter': 'R/G Filter'
+    };
 
-    // Row 3 - Charts 15-21 (Mixed)
-    'letters-evotl-20',    // Chart 15 (Snellen Chart)
-    'letters-aplbk-25',    // Chart 16 (Snellen Chart)
-    'red-green',           // Chart 17 (Duochrome Chart)
-    'astigmatism',         // Chart 18 (Astigmatic fan chart)
-    'dots',                // Chart 19 (JCC Chart)
-    'red-green-lines',     // Chart 20 (Binocular Balance Chart)
-    'fixation-dot',        // Chart 21 (Pinhole Chart)
-] as const;
+    // Helper to get group name
+    const getGroup = (key: string) => groupNameMap[key] || key;
 
-export function getChartNumber(chartId: ChartType): number {
-    const index = CHART_DEFINITIONS.indexOf(chartId as any);
-    return index !== -1 ? index + 1 : 0;
-}
+    // Direct match check (e.g. 'dots')? 
+    // Wait, charts are now like 'special-dots'.
 
-export function getChartName(chartId: ChartType): string {
-    const chartNumber = getChartNumber(chartId);
+    const parts = chartId.split('-');
+    if (parts.length === 2) {
+        const [groupKey, value] = parts;
 
-    if (chartNumber >= 1 && chartNumber <= 7) {
-        return 'Rotated E chart';
-    } else if (chartNumber >= 8 && chartNumber <= 16) {
-        return 'Snellen Chart';
-    } else if (chartNumber === 17) {
-        return 'Duochrome Chart';
-    } else if (chartNumber === 18) {
-        return 'Astigmatic fan chart';
-    } else if (chartNumber === 19) {
-        return 'JCC Chart';
-    } else if (chartNumber === 20) {
-        return 'Binocular Balance Chart';
-    } else if (chartNumber === 21) {
-        return 'Pinhole Chart';
+        // General Name
+        const generalName = getGroup(groupKey);
+
+        // Handle Mask group
+        if (groupKey === 'mask') {
+            const display = specialMap[value] || value;
+            return { number: generalName, display: display };
+        }
+
+        // Handle Special group
+        if (groupKey === 'special') {
+            const display = specialMap[value] || value;
+            if (value === 'rg') return { number: 'Duochrome Chart', display: display };
+            if (value === 'dots') return { number: 'JCC Chart', display: display };
+            if (value === 'cross') return { number: 'Cross Cylinder Chart', display: display };
+            if (value === 'clock') return { number: 'Astigmatic Chart', display: display };
+            return { number: generalName, display: display };
+        }
+
+        // Standard VA chart: Group + Value
+        // Chart Number = "E Chart"
+        // Chart Display = "0.5"
+        return { number: generalName, display: value };
     }
 
-    return 'Unknown Chart';
-}
+    // Fallback if ID is simple string (e.g. old IDs)
+    if (specialMap[chartId]) return { number: 'General Test Chart', display: specialMap[chartId] };
 
-export function getChartInfo(chartId: ChartType): { number: number; name: string } {
     return {
-        number: getChartNumber(chartId),
-        name: getChartName(chartId),
+        number: chartId,
+        display: chartId
     };
-}
+};
